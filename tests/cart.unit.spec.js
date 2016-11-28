@@ -134,7 +134,6 @@ QUnit.test("showCart should trigger cart reminder alert after 0s if cart contain
     var sleepRan = false;
     var sleepDuration = 0;
     window.sleep = function(ms) {
-        console.log("running window.sleep");
         sleepRan = true;
         sleepDuration = ms;
     };
@@ -149,4 +148,32 @@ QUnit.test("showCart should trigger cart reminder alert after 0s if cart contain
     cart = oldCart;
     window.alert = _old_alert;
     window.sleep = _old_sleep;
+});
+
+
+QUnit.test("cartDisplay should set cart value to $0 if cart is empty", function( assert ) {
+    //@BEFORE
+    var oldCart = cart;
+    cart = {};
+
+    cartDisplay();
+    assert.equal(document.getElementById("cartDisplayButton").value, "Cart ($0)");
+
+    //@AFTER
+    cart = oldCart;
+});
+
+QUnit.test("cartDisplay should set cart value to value of cart if cart is not empty", function( assert ) {
+    //@BEFORE
+    var oldCart = cart;
+    var oldProducts = products;
+    cart = { "Tent": 1 };
+    products = { "Tent": {price: 20} };
+
+    cartDisplay();
+    assert.equal(document.getElementById("cartDisplayButton").value, "Cart ($20)");
+
+    //@AFTER
+    cart = oldCart;
+    products = oldProducts;
 });
