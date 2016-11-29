@@ -141,7 +141,7 @@ QUnit.test("showCart should trigger cart reminder alert after 0s if cart contain
     showCart();
     assert.ok(alertRan);
     assert.equal(lastAlertMessage, "Your cart has 1 Tent");
-    assert.notOk(sleepRan);
+    assert.equal(sleepRan, false);
     assert.equal(sleepDuration, 0);
 
     //@AFTER
@@ -172,6 +172,53 @@ QUnit.test("cartDisplay should set cart value to value of cart if cart is not em
 
     cartDisplay();
     assert.equal(document.getElementById("cartDisplayButton").value, "Cart ($20)");
+
+    //@AFTER
+    cart = oldCart;
+    products = oldProducts;
+});
+
+
+QUnit.test("addToCart should add a valid product to the cart", function( assert ) {
+    //@BEFORE
+    var oldCart = cart;
+    var oldProducts = products;
+    cart = {};
+    products = { "Tent": {price: 20} };
+
+    addToCart("Tent");
+    assert.equal(cart["Tent"], 1);
+
+    //@AFTER
+    cart = oldCart;
+    products = oldProducts;
+});
+QUnit.test("addToCart not should add an invalid product to the cart", function( assert ) {
+    //@BEFORE
+    var oldCart = cart;
+    var oldProducts = products;
+    cart = {};
+    products = {};
+    try {
+        addToCart("Tent");
+    } catch(err) {
+        assert.equal(err, "TypeError: Cannot read property 'quantity' of undefined");
+    }
+
+
+    //@AFTER
+    cart = oldCart;
+    products = oldProducts;
+});
+QUnit.test("removeFromCart should remove an valid product from the cart", function( assert ) {
+    //@BEFORE
+    var oldCart = cart;
+    var oldProducts = products;
+    cart = { "Tent": 1 };
+    products = { "Tent": {price: 20} };
+
+    removeFromCart("Tent", 1);
+    assert.equal(cart.hasOwnProperty("Tent"), false);
 
     //@AFTER
     cart = oldCart;
