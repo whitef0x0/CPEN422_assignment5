@@ -141,7 +141,7 @@ QUnit.test("showCart should trigger cart reminder alert after 0s if cart contain
     showCart();
     assert.ok(alertRan);
     assert.equal(lastAlertMessage, "Your cart has 1 Tent");
-    assert.notOk(sleepRan);
+    assert.equal(sleepRan, false);
     assert.equal(sleepDuration, 0);
 
     //@AFTER
