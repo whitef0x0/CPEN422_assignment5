@@ -144,3 +144,21 @@ QUnit.test("insertProductPurchaseButtons should add Add/Remove buttons for valid
     cart = oldCart;
     products = oldProducts;
 });
+
+QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visible cart is not empty", function ( assert ) {
+    var oldCart = cart;
+    var oldProducts = products;
+    cart = { };
+    products = { "Tent": {price: 20, quantity: 1} };
+
+    configureProductPanels();
+
+    insertProductPurchaseButtons();
+    self.equal(listRemoveButtons[0].style.visibility, "hidden");
+    addToCart("Tent");
+    self.equal(listRemoveButtons[0].style.visibility, "visible");
+    removeFromCart("Tent", 1);
+    self.equal(listRemoveButtons[0].style.visibility, "hidden");
+
+    cart = oldCart;
+})
