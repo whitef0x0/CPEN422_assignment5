@@ -73,26 +73,26 @@ var sendRequest = function(url, callbackFunction){
         } else {
             sendRequest(url, callbackFunction);
         }
-    }
+    };
 
     xhr.onerror	= function() {
         console.log("Server	unreachable");
         sendRequest(url, callbackFunction);
-    }
+    };
     
     xhr.timeout = 5000;
     
     xhr.ontimeout =	function() {
         console.log("Request timed out");
         sendRequest(url, callbackFunction);
-    }
+    };
     
     xhr.onabort = function() {
         console.log("Request Aborted");
-    }
+    };
     
     xhr.send();
-}
+};
 
 /*
     Helper function to check if an object is empty
@@ -193,7 +193,7 @@ function configureButton(buttonText, buttonClasses) {
 function changeRemoveButtonDisplaySetting(){
     var listRemoveButtons = document.getElementsByClassName(Classes.btn + " " + Classes.removeBtn);
     var id;
-    for(i=0; i<listRemoveButtons.length; i++){
+    for(var i=0; i<listRemoveButtons.length; i++){
         id = listRemoveButtons[i].parentElement.id;
         if(!(cart.hasOwnProperty(id)))
             listRemoveButtons[i].style.visibility = "hidden";

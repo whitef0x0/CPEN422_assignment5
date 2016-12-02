@@ -4,7 +4,7 @@ QUnit.module( "bookstore.js unit tests" );
 
 });*/
 
-QUnit.test("configureProductPabnels should add the correct price, name and image url" +
+QUnit.test("configureProductPanels should add the correct price, name and image url" +
     "to each product panel", function( assert ) {
 
     products = {
@@ -124,7 +124,7 @@ QUnit.test("isEmptyObject should return false for a non-empty object", function(
     assert.equal(isEmptyObject(obj), false);
 });
 
-QUnit.test("insertProductPurchaseButtons should add Add/Remove buttons for valid product", function( assert ) {
+QUnit.test("insertProductPurchaseButtons should add Add/Remove buttons for valid product", function(assert) {
     //@BEFORE
     var oldCart = cart;
     var oldProducts = products;
@@ -145,6 +145,7 @@ QUnit.test("insertProductPurchaseButtons should add Add/Remove buttons for valid
     products = oldProducts;
 });
 
+
 QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visible cart is not empty", function ( assert ) {
     var oldCart = cart;
     var oldProducts = products;
@@ -161,4 +162,21 @@ QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visib
     self.equal(listRemoveButtons[0].style.visibility, "hidden");
 
     cart = oldCart;
-})
+});
+
+QUnit.test("sendRequest should retrieve a products object from the provided URL", function(assert) {
+    var testProducts;
+    var keyboardImage = 'https://cpen400a.herokuapp.com/images/KeyboardCombo.png';
+
+    sendRequest(BACKEND_URL, function(responseObject) {
+        testProducts = responseObject;
+
+        assert.equal(isEmptyObject(obj), false);
+        assert.equal(testProducts.hasOwnProperty("KeyboardCombo"), true);
+        assert.equal(typeof testProducts["KeyboardCombo"], Object);
+        assert.equal(testProducts["KeyboardCombo"].url, keyboardImage);
+    });
+});
+
+
+
