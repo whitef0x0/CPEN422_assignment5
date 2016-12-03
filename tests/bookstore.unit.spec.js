@@ -149,19 +149,27 @@ QUnit.test("insertProductPurchaseButtons should add Add/Remove buttons for valid
 QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visible cart is not empty", function ( assert ) {
     var oldCart = cart;
     var oldProducts = products;
+    var tentRmvBtn = document.querySelector("#Tent > button.btn.removeBtn");
+
     cart = { };
     products = { "Tent": {price: 20, quantity: 1} };
 
     configureProductPanels();
 
     insertProductPurchaseButtons();
-    self.equal(listRemoveButtons[0].style.visibility, "hidden");
+
+
+    self.equal(tentRmvBtn, null);
     addToCart("Tent");
-    self.equal(listRemoveButtons[0].style.visibility, "visible");
+    self.equal(tentRmvBtn, !null);
     removeFromCart("Tent", 1);
-    self.equal(listRemoveButtons[0].style.visibility, "hidden");
+    self.equal(tentRmvBtn, null);
 
     cart = oldCart;
+});
+
+QUnit.test("productRealName should display the correct name", function ( assert ) {
+    
 });
 
 QUnit.test("sendRequest should retrieve a products object from the provided URL", function(assert) {
