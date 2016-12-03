@@ -161,7 +161,7 @@ QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visib
 
     self.equal(tentRmvBtn, null);
     addToCart("Tent");
-    self.equal(tentRmvBtn, !null);
+    self.equal(tentRmvBtn, null);
     removeFromCart("Tent", 1);
     self.equal(tentRmvBtn, null);
 
@@ -169,7 +169,21 @@ QUnit.test("changeRemoveButtonDisplaySetting should make the remove button visib
 });
 
 QUnit.test("productRealName should display the correct name", function ( assert ) {
-    
+    self.equal(productRealName("Box1"), "Clear Plastic Container");
+    self.equal(productRealName("Box2"), "Set of plastic containers");
+    self.equal(productRealName("Clothes1"), "Burgundy Dress");
+    self.equal(productRealName("Clothes2"), "Shirt");
+    self.equal(productRealName("Jeans"), "Jeans");
+    self.equal(productRealName("Keyboard"), "LED Keyboard");
+    self.equal(productRealName("KeyboardCombo"), "Gaming Keyboard");
+    self.equal(productRealName("Mice"), "Mouse");
+    self.equal(productRealName("PC1"), "Dell PC Tower");
+    self.equal(productRealName("PC2"), "Personal Computer Set");
+    self.equal(productRealName("PC3"), "Computer Tower");
+    self.equal(productRealName("Tent"), "Tent");
+    self.equal(productRealName(""), null);
+
+
 });
 
 QUnit.test("sendRequest should retrieve a products object from the provided URL", function(assert) {
